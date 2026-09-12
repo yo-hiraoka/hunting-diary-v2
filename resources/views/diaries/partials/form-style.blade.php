@@ -1,4 +1,10 @@
 <style>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
     .diary-form {
         max-width: 850px;
     }
