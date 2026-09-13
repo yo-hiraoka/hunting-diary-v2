@@ -21,6 +21,10 @@ class DiaryController extends Controller
     {
         $user = auth()->user();
 
+        if ($user === null) {
+            return to_route('login');
+        }
+
         if (
             $user->weather_latitude === null ||
             $user->weather_longitude === null
@@ -324,7 +328,7 @@ class DiaryController extends Controller
     ): RedirectResponse {
         Gate::authorize('restore', $diary);
 
-        if (! $diary->trashed()) {
+        if (!$diary->trashed()) {
             return to_route('diaries.index')
                 ->with('status', 'この日誌は削除されていません。');
         }
@@ -343,7 +347,7 @@ class DiaryController extends Controller
     ): RedirectResponse {
         Gate::authorize('forceDelete', $diary);
 
-        if (! $diary->trashed()) {
+        if (!$diary->trashed()) {
             return to_route('diaries.index')
                 ->with(
                     'status',

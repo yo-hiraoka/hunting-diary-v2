@@ -24,7 +24,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('settings.location.edit');
     Route::get('/diaries/{diary}/pdf', DiaryPdfController::class)
         ->name('diaries.pdf');
+    // 日誌CRUD
+    Route::resource('diaries', DiaryController::class);
 
+    // 個別PDF・復元・完全削除など
+    // 現在のルートをこの中へ配置
     Route::patch('/settings/location', [LocationController::class, 'update'])
         ->name('settings.location.update');
 });

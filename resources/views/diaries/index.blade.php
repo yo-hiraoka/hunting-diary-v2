@@ -435,11 +435,11 @@
                                         <td>
                                             <span
                                                 class="
-                                                                                                                                                                                                                                                                                                                                                                                                                {{ $diary->diary_type->value
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        {{ $diary->diary_type->value
                                 === 'hunting'
                                 ? 'type-hunting'
                                 : 'type-control' }}
-                                                                                                                                                                                                                                                                                                                                                                                                            ">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                    ">
                                                 {{ $diary->diary_type->label() }}
                                             </span>
                                         </td>
@@ -470,9 +470,11 @@
                                                 詳細
                                             </a>
 
-                                            <a href="{{ route('diaries.pdf', ['diary' => $diary, 'print' => 1]) }}" target="_blank"
-                                                rel="noopener">
-                                                印刷
+                                            <a class="pdf-button" href="{{ route(
+                                'diaries.pdf.list',
+                                request()->except('page')
+                            ) }}">
+                                                PDF
                                             </a>
                                         </td>
                                     </tr>
