@@ -328,7 +328,7 @@ class DiaryController extends Controller
     ): RedirectResponse {
         Gate::authorize('restore', $diary);
 
-        if (!$diary->trashed()) {
+        if (! $diary->trashed()) {
             return to_route('diaries.index')
                 ->with('status', 'この日誌は削除されていません。');
         }
@@ -347,7 +347,7 @@ class DiaryController extends Controller
     ): RedirectResponse {
         Gate::authorize('forceDelete', $diary);
 
-        if (!$diary->trashed()) {
+        if (! $diary->trashed()) {
             return to_route('diaries.index')
                 ->with(
                     'status',
