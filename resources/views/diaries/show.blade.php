@@ -90,9 +90,10 @@
         }
 
         .text-content {
-            line-height: 1.7;
-            white-space: pre-wrap;
-        }
+    margin: 8px 0 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
 
         .ammunition-table {
             width: 100%;
@@ -334,9 +335,7 @@
                     {{ $diary->has_capture ? '有' : '無' }}
 
                     @if ($diary->has_capture)
-                        <p class="text-content">
-                            {{ $diary->capture_details }}
-                        </p>
+                        <p class="text-content">{{ $diary->capture_details }}</p>
                     @endif
                 </div>
 
@@ -345,9 +344,7 @@
                     {{ $diary->has_sighting ? '有' : '無' }}
 
                     @if ($diary->has_sighting)
-                        <p class="text-content">
-                            {{ $diary->sighting_details }}
-                        </p>
+                        <p class="text-content">{{ $diary->sighting_details }}</p>
                     @endif
                 </div>
             </div>
@@ -401,9 +398,7 @@
         <section class="section">
             <h3>注釈</h3>
 
-            <div class="text-content">
-                {{ $diary->notes ?: '注釈はありません。' }}
-            </div>
+            <div class="text-content">{{ $diary->notes ?: '注釈はありません。' }}</div>
         </section>
     </div>@if (session('status'))
     <div style="
