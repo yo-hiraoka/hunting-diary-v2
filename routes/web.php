@@ -20,71 +20,54 @@ Route::middleware(['auth', 'verified'])->group(function () {
         WeatherController::class,
         'show',
     ])->name('weather.show');
-    Route::get('/settings/location', [LocationController::class, 'edit'])
-        ->name('settings.location.edit');
-    Route::get('/diaries/{diary}/pdf', DiaryPdfController::class)
-        ->name('diaries.pdf');
-    // 日誌CRUD
+
+    Route::get('/settings/location', [
+        LocationController::class,
+        'edit',
+    ])->name('settings.location.edit');
+
+    Route::patch('/settings/location', [
+        LocationController::class,
+        'update',
+    ])->name('settings.location.update');
+
+    /*
+     * diaries/{diary}より前に定義する必要がある固定URL
+     */
+    Route::get('/diaries/trash', [
+        DiaryController::class,
+        'trash',
+    ])->name('diaries.trash');
+
+    Route::get(
+        '/diaries/pdf/list',
+        DiaryListPdfController::class
+    )->name('diaries.pdf.list');
+
+    /*
+     * 日誌の基本CRUD
+     */
     Route::resource('diaries', DiaryController::class);
 
-    // 個別PDF・復元・完全削除など
-    // 現在のルートをこの中へ配置
-    Route::patch('/settings/location', [LocationController::class, 'update'])
-        ->name('settings.location.update');
+    /*
+     * 日誌の追加機能
+     */
+    Route::get(
+        '/diaries/{diary}/pdf',
+        DiaryPdfController::class
+    )->name('diaries.pdf');
+
+    Route::patch('/diaries/{diary}/restore', [
+        DiaryController::class,
+        'restore',
+    ])
+        ->withTrashed()
+        ->name('diaries.restore');
+
+    Route::delete('/diaries/{diary}/force-delete', [
+        DiaryController::class,
+        'forceDelete',
+    ])
+        ->withTrashed()
+        ->name('diaries.force-delete');
 });
-Route::get('/diaries', [
-    DiaryController::class,
-    'index',
-])->name('diaries.index');
-
-Route::get('/diaries/create', [
-    DiaryController::class,
-    'create',
-])->name('diaries.create');
-
-Route::get('/diaries/trash', [
-    DiaryController::class,
-    'trash',
-])->name('diaries.trash');
-
-Route::get('/diaries/pdf/list', DiaryListPdfController::class)
-    ->name('diaries.pdf.list');
-
-Route::post('/diaries', [
-    DiaryController::class,
-    'store',
-])->name('diaries.store');
-
-Route::get('/diaries/{diary}', [
-    DiaryController::class,
-    'show',
-])->name('diaries.show');
-
-Route::get('/diaries/{diary}/edit', [
-    DiaryController::class,
-    'edit',
-])->name('diaries.edit');
-
-Route::patch('/diaries/{diary}', [
-    DiaryController::class,
-    'update',
-])->name('diaries.update');
-
-Route::delete('/diaries/{diary}', [
-    DiaryController::class,
-    'destroy',
-])->name('diaries.destroy');
-
-Route::patch('/diaries/{diary}/restore', [
-    DiaryController::class,
-    'restore',
-])
-    ->withTrashed()
-    ->name('diaries.restore');
-
-Route::delete('/diaries/{diary}/force-delete', [
-    DiaryController::class,
-    'forceDelete',
-])
-    ->withTrashed()
-    ->name('diaries.force-delete');
