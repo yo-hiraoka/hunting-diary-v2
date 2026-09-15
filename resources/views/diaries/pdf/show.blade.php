@@ -307,9 +307,7 @@ tr {
         </tr>
         <tr>
             <th>捕獲内容</th>
-            <td class="text">
-                {{ $diary->capture_details ?: 'なし' }}
-            </td>
+            <td class="text">{{ $diary->capture_details ?: 'なし' }}</td>
         </tr>
         <tr>
             <th>目撃</th>
@@ -317,9 +315,7 @@ tr {
         </tr>
         <tr>
             <th>目撃内容</th>
-            <td class="text">
-                {{ $diary->sighting_details ?: 'なし' }}
-            </td>
+            <td class="text">{{ $diary->sighting_details ?: 'なし' }}</td>
         </tr>
     </table>
 
@@ -360,9 +356,7 @@ tr {
 
     <h2>注釈</h2>
 
-    <div class="text">
-        {{ $diary->notes ?: '注釈はありません。' }}
-    </div>
+    <div class="text">{{ $diary->notes ?: '注釈はありません。' }}</div>
 
     <h2>記録情報</h2>
 
